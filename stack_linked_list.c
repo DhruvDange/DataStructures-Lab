@@ -4,7 +4,7 @@
 typedef struct Student {
     char name[20];
     int usn;
-    Student * next;
+    struct Student * next;
 }Student;
 
 Student *head;
@@ -45,10 +45,46 @@ void pop(){
 void display(){
     Student *ptr = head;
 
-    while()
+    if(head == NULL){
+        printf("Stack is empty\n");
+    }
+
+    while(ptr != NULL){
+        printf("Studdent name: %s, usn: %d, next node: %d\n", ptr->name, ptr->usn, ptr->next);
+        ptr = ptr->next;
+    }
 
 }
 
 void main(){
+    head = NULL;
+    int choice;
+    printf("Menu\n");
+    printf("1. Push\n");
+    printf("2. Pop\n");
+    printf("3. Display\n");
+    printf("4. Exit\n");
 
+    do{
+        
+        printf("\nEnter choice: \n");
+        scanf("%d", &choice);
+
+        switch(choice){
+            case 1:
+                push();
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                exit(0);
+                break;
+            default:
+                printf("Invalid choice...enter again!");
+        }
+    }while(1);
 }
