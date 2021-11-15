@@ -70,6 +70,11 @@ void addAny(){
     int pos = -1;
     Student * addNextTo = NULL;
     Student *ptr = head;
+
+    if(ptr == NULL){
+        addStart();
+        return;
+    }
     
     // get info about where to add
     do{
