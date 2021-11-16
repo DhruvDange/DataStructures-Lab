@@ -7,7 +7,7 @@ typedef struct Student {
     struct Student *next;
 }Student;
 
-Student *front;
+Student *head;
 Student *rear;
 
 void enQueue(){
@@ -19,8 +19,8 @@ void enQueue(){
     scanf("%d", &newStudent->usn);
     newStudent->next = NULL;
 
-    if(front == NULL){
-        front = rear = newStudent;
+    if(head == NULL){
+        head = rear = newStudent;
     }else{
         rear->next = newStudent;
         rear = newStudent;
@@ -30,13 +30,13 @@ void enQueue(){
 
 void deQueue(){
 
-    Student *ptr = front;
+    Student *ptr = head;
 
     if(ptr == NULL){
         printf("Queue is empty! Underflow\n");
         return;
     }else{
-        front = front->next;
+        head = head->next;
         printf("Student with name: %s, usn: %d deleted!\n", ptr->name, ptr->usn);
         free(ptr);
     }
@@ -45,7 +45,7 @@ void deQueue(){
 
 void display(){
 
-    Student *ptr = front;
+    Student *ptr = head;
     if(ptr == NULL){
         printf("Queue is empty");
     }else{
@@ -58,7 +58,7 @@ void display(){
 }
 
 void main(){
-    front = rear = NULL;
+    head = rear = NULL;
     int choice;
     printf("Menu\n");
     printf("1. Push\n");

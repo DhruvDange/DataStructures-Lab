@@ -31,19 +31,14 @@ Student * createStudentNode(Student * ptr){
 
 Student * searchStudent(int usnToSearch){
     Student *ptr = head;
-    int chk = 0;
-    
-    if(ptr != NULL)
-        do{
-            if(ptr -> usn == usnToSearch)
+
+    while(ptr != NULL){
+        if(ptr -> usn == usnToSearch)
                 return ptr; // Break and return only 1st occurance
-            ptr = ptr -> next;
-        }while(ptr != NULL);
-
-    if(chk == 0)
-        printf("Student with usn %d not found!\n", usnToSearch);
-
-    return 0;
+        ptr = ptr -> next;
+    }
+    
+    return NULL;
 }
 
 
@@ -197,7 +192,6 @@ void main(){
                 if(ptr){
                     printf("Student found!\n");
                     printf("Name: %s\tusn: %d\n", ptr->name, ptr->usn);
-                    free(ptr);
                 }
                 break;
             case 6:

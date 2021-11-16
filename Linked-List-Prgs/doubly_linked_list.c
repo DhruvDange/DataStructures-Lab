@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// delete pending
-
 typedef struct Student {
     struct Student *prev;
     char name[20];
@@ -27,19 +25,13 @@ Student * createNewNode(){
 Student * search(int usnToSearch){
 
     Student *ptr = head;
-    int chk = 0;
 
-    if(ptr != NULL){
-        do{
-            if(ptr->usn == usnToSearch){
-                chk++;
-                return ptr;
-            }
-            ptr = ptr->next;
-        }while(ptr != NULL);
+    while(ptr != NULL){
+        if(ptr -> usn == usnToSearch)
+            return ptr; // Break and return only 1st occurance
+        ptr = ptr -> next;
     }
-    if(chk == 0)
-        printf("Studnt with roll no: %d not found!\n", usnToSearch);
+
     return NULL;
 }
 
@@ -211,7 +203,6 @@ void main(){
                 if(ptr){
                     printf("Student found!\n");
                     printf("Name: %s\tusn: %d\n", ptr->name, ptr->usn);
-                    free(ptr);
                 }
                 break;
             case 6:
