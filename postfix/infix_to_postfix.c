@@ -43,42 +43,50 @@ int priority(char symbol){
         case '%':
             return 2;
         case '^':
-        case '&':
+        case '$':
             return 3;
     }
 }
 
-char *infixToPostfix(char *postfix, char *infix){
+char *infixToPostfix(char *infix, char *postfix){
     int i = 0, j = -1;
 
-    while(postfix[i] != 0){
+    while(infix[i] != '\0'){
         
-        if(postfix[i] == '('){
-            push(postfix[i]);
-        }else if(isalnum(postfix[i])){
-            infix[++j] = postfix[i];
-        }else if(postfix[i] == ')'){
-            while(peek() != '('){
-                infix[++j] = pop();
+        if(infix[i] == '(')
+        {
+            push(infix[i]);
+        }
+        else if(isalnum(infix[i]))
+        {
+            postfix[++j] = infix[i];
+        }
+        else if(infix[i] == ')')
+        {
+            while(peek() != '(')
+            {
+                postfix[++j] = pop();
             }
             pop();
-        }else{
-            while(priority(peek()) >= priority(postfix[i])){
-                infix[++j] = pop();
+        }
+        else{
+            while(priority(peek()) >= priority(infix[i]))
+            {
+                postfix[++j] = pop();
             }
-            push(postfix[i]);
+            push(infix[i]);
         }
         i++;
     }
     while(peek() != '#'){
-        infix[++j] = pop();
+        postfix[++j] = pop();
     }
 }
 
 void main(){
-    char expr[MAX], infix[MAX];
+    char expr[MAX], postfix[MAX];
     scanf("%s", expr);
 
-    infixToPostfix(expr, infix);
-    printf("\n %s", infix);
+    infixToPostfix(expr, postfix);
+    printf("\n %s", postfix);
 }
