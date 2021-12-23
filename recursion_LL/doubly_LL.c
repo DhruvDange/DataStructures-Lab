@@ -88,6 +88,51 @@ Student *addAny(Student *head, int ins_next_to)
     }
 }
 
+
+Student *createList(Student **head)
+{
+    Student *ptr;
+    int n;
+    if (head == NULL)
+    {
+        printf("Enterting first node in circular linked list\n");
+        *head = (Student *) malloc(sizeof(Student));
+        printf("please enter the data to be put into the new node\n");
+        scanf("%d", &n);
+        (*head)->data = n;
+        (*head)->prev = NULL;
+        ptr = *head;
+    }
+    else
+    {
+        printf("please enter the data to be put into the new node\n");
+        scanf("%d", &n);
+        ptr = (Student *) malloc(sizeof(Student));
+        ptr->prev = NULL;
+        ptr->data = n;
+    }
+    printf("do you want to enter more nodes into this circular linked list?\n1.Yes\n2.No\n");
+    int choice;
+    scanf("%d", &choice);
+    switch (choice)
+    {
+    case 1:
+
+        ptr->next = createList(head);
+        ptr->next->prev = ptr;
+        break;
+
+    case 2:
+        ptr->next = NULL;
+        break;
+
+    default:
+        printf("please enter a valid option\n");
+        break;
+    }
+    return ptr;
+}
+
 Student *delete (Student *head, int val_to_delete)
 {
     if (head == NULL)
@@ -167,7 +212,7 @@ void main()
         switch (choice)
         {
         case 1:
-            head = addStart(head, &rear);
+            head = createList(&head);
             break;
         case 2:
             rear = addEnd(rear);
@@ -186,7 +231,7 @@ void main()
             printf("Enter value to search: ");
             scanf("%d", &val);
             ptr = search(head, val);
-            if(head == NULL)
+            if (head == NULL)
                 printf("Node not found!\n");
             else
                 printf("Node found!\n");
