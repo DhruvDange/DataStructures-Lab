@@ -20,14 +20,8 @@ void push(){
         printf("Enter Student usn: ");
         scanf("%d", &newStudent->usn);
 
-        if(head == NULL){
-            // First elemnt
-            newStudent->next = NULL;
-            head = newStudent;
-        }else{
-            newStudent->next = head;
-            head = newStudent;
-        }
+        newStudent->next = head;
+        head = newStudent;
     }
 }
 
