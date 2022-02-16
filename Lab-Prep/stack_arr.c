@@ -2,50 +2,42 @@
 #include <stdlib.h>
 
 #define SIZE 5
+int top = -1;
+int stack[SIZE];
 
-int top;
-int s[SIZE];
-int item;
-
-void push()
+void push(int item)
 {
-    if (top == SIZE - 1)
-    {
-        printf("Stack Overflow\n");
+    if(top == SIZE - 1){
+        printf("Stack overflow\n");
         return;
     }
-    s[++top] = item;
+    stack[++top] = item;
 }
 
 int pop()
 {
-    if (top == -1)
-    {
-        printf("UnderFlow\n");
-        return 0;
+    if(top == -1){
+        printf("Stack underflow\n");
+        return;
     }
-    return s[top--];
+    return(stack[top--]);
 }
 
 void display()
 {
-    int i;
-    if (top == -1)
-    {
-        printf("Stack is Empty\n");
+    if(top == -1){
+        printf("Stack is empty!\n");
         return;
     }
-    printf("Contents of the Stack :\n");
-    for (i = 0; i <= top; i++)
-    {
-        printf("%d\n", s[i]);
+    for(int i = 0; i <= top; i++){
+        printf("%d \t", stack[i]);
     }
+    printf("\n");
 }
 
 int main()
 {
-    int item_del, choice;
-    top = -1;
+    int choice, item, item_del;
     for (;;)
     {
         printf("Enter the choice -\n1. Push\n2. Pop\n3. Display\n4. Quit\n");
@@ -56,17 +48,13 @@ int main()
         {
             printf("Enter element-");
             scanf("%d", &item);
-            push();
+            push(item);
             break;
         }
         case 2:
         {
             item_del = pop();
-            if (item_del == 0)
-            {
-                printf("Stack Underflow\n");
-            }
-            else
+            if (item_del)
             {
                 printf("Item Deleted : %d\n", item_del);
             }

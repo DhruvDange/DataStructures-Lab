@@ -65,6 +65,38 @@ BT *createLeaf(BT *root, int data){
     return root;
 }
 
+BT *delete(BT *root, int value){
+    if(root == NULL){
+        return;
+    }else if(root->data > value){
+        root->left = delete(root->left, value);
+    }else if(root->data < value){
+        root->right = delete(root->right, value);
+    }else{
+        
+        BT *temp = root;
+
+        if(root->left == NULL && root->right == NULL){
+            root = NULL;
+            free(temp);
+        }else if(root->left == NULL){
+            root = root->right;
+            free(temp);
+        }else if(root->right == NULL){
+            root = root->left;
+            free(temp);
+        }else{
+            BT *ptr = root->right;
+            while(ptr->left != NULL){
+                ptr = ptr->left;
+            }
+            root->data = ptr->data;
+            root->right = delete(root->right, ptr->data);
+        }
+    }
+    return root;
+}
+
 void main()
 {
     BT *root = NULL;
@@ -77,7 +109,7 @@ void main()
         printf("\n3. Preorder Traversal");
         printf("\n4. Postorder Traversal");
         printf("\n5. Display");
-		printf("\n6. Exit");
+		printf("\n6. Delete");
         printf("\nEnter Choice : ");
         scanf("%d",&choice);
         switch(choice)
@@ -103,7 +135,9 @@ void main()
 			display(root,1); 
             break;
 		case 6: 
-			exit(0); 
+            printf("Enter value of node: ");
+            scanf("%d", &value);
+			root = delete(root, value); 
             break;
         default:
             printf("\nInvalid Option");
