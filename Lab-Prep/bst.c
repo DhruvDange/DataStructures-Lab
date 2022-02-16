@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct Btree{
     struct Btree *left;
@@ -37,6 +38,30 @@ Btree *addLeaf(Btree *root, int data){
     return root;
 }
 
+Btree *createTree(){
+    
+    int chk, value;
+    printf("Would you like to add a node: 1->YES 2-> NO \n");
+    scanf("%d", &chk);
+
+    if(chk == 2)
+        return NULL;
+    
+    printf("Enter value of node: ");
+    scanf("%d", &value);
+
+    Btree *ptr = createNode(value);
+
+    printf("Enter left node:\n");
+    ptr->left = createTree();
+
+    printf("Enter right node: \n");
+    ptr->right = createTree();
+
+    return ptr;
+}
+
+
 void main()
 {
     Btree *root = NULL;
@@ -51,9 +76,9 @@ void main()
         switch(choice)
         {
         case 1:
-            printf("Enter value of node: ");
-            scanf("%d", &value);
-            root = addLeaf(root, value);
+            // printf("Enter value of node: ");
+            // scanf("%d", &value);
+            root = createTree();
             break;
         case 2:
 			display(root,1); 

@@ -22,6 +22,7 @@ student* searchNode(int data){
             return ptr;
         ptr = ptr->next;
     }while(ptr != head);
+
     return NULL;
 }
 
@@ -90,6 +91,7 @@ void delete(int data){
     if(search->next == search){
         head = NULL;
     }
+    free(search);
 
 }
 
